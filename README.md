@@ -42,7 +42,7 @@ The most common chunk that causes this problem is [MCLV](https://wowdev.wiki/ADT
 Python script should automatically remove MCLV. Make sure the line "remove_mclv=true" is exist in config.txt
 
 If the problem persists, compile [Luzifix ADT Converter](https://github.com/Luzifix/ADTConvert) from sources and debug it to find the problem causing the error.
-### Landscape LOD bug like [this](https://i.imgur.com/Ad3bdfe.mp4)
+### Landscape LOD bug like [this](https://i.imgur.com/Ad3bdfe.mp4) (Only for continents, I think).
 A full LOD update for the new landscape would be a good solution, but there is an easier and time-saving option.
 
 Take [WDT](https://wowdev.wiki/WDT#MPHD_chunk) file from your shadowlands client and edit it using 010 editor.
