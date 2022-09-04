@@ -48,3 +48,5 @@ A full LOD update for the new landscape would be a good solution, but there is a
 Take [WDT](https://wowdev.wiki/WDT#MPHD_chunk) file from your shadowlands client and edit it using 010 editor.
 
 You will need to remove the flag 0x0100 and 0x8000 (if exists). This will disable use of lod files. Draw distance will drop to 335.
+
+You also can use [this fixer](https://github.com/AcoStar7819/wdt-flags-fixer) to do it automatically and faster.
