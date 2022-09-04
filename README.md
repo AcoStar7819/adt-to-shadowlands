@@ -32,3 +32,19 @@ You can compile this with [PyInstaller](https://pyinstaller.org/en/stable/)
 ```
 pyinstaller.exe --onefile --icon=app.ico app.py
 ```
+
+## Known Issues
+### Converter crash at "Converting adt..." stage.
+This usually happens when you converting adt that have downgraded to LK. The Luzifix converter can break if it see chunks that are not intended for 335.
+
+The most common chunk that causes this problem is [MCLV](https://wowdev.wiki/ADT/v18#MCLV_sub-chunk_.28Cata.2B.29).
+
+Python script should automatically remove MCLV. Make sure the line "remove_mclv=true" is exist in config.txt
+
+If the problem persists, compile [Luzifix ADT Converter](https://github.com/Luzifix/ADTConvert) from sources and debug it to find the problem causing the error.
+### Landscape LOD bug like [this](https://i.imgur.com/Ad3bdfe.mp4)
+A full LOD update for the new landscape would be a good solution, but there is an easier and time-saving option.
+
+Take [WDT](https://wowdev.wiki/WDT#MPHD_chunk) file from your shadowlands client and edit it using 010 editor.
+
+You will need to remove the flag 0x0100 and 0x8000 (if exists). This will disable use of lod files. Draw distance will drop to 335.
