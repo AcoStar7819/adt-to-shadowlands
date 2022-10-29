@@ -29,16 +29,19 @@ if config.get('clear_output_dir'):
     for path in glob.glob(f'{output_path}*'):
         os.remove(path)
 
-#   Removing MCLV chunk
-#   This chunk causes troubles when you try convert cata adt (CATA -> 335 -> SL) or something
-#   https://wowdev.wiki/ADT/v18#MCLV_sub-chunk_.28Cata.2B.29
+#   Removing bad chunks
+#   This chunks causes troubles when you try convert cata adt (CATA -> 335 -> SL) or something
 
-if config.get('remove_mclv'):
-    for path in glob.glob(input_path + '*.adt'):
-        with open(path, 'rb+') as file:
-            data = file.read()
+bad_chunks = [Chunk.MCLV, Chunk.MCMT]
+for path in glob.glob(input_path + '*.adt'):
+    with open(path, 'rb+') as file:
+        data = file.read()
+        for bad_chunk in bad_chunks:
+            chunk_name = bad_chunk.decode('UTF-8').lower()[::-1] # Get chunk name as string and reverse it
+            if not config.get('remove_' + chunk_name, True):
+                continue
             pos = 0
-            while (pos := data.find(Chunk.MCLV, pos+4)) != -1:
+            while (pos := data.find(bad_chunk, pos+4)) != -1:
                 file.seek(pos)
                 file.write(b'\0\0\0\0')
 

@@ -2,10 +2,10 @@ input=./input/
 output=./output/
 listfile=./listfile.csv
 
-#   Removing MCLV chunk
-#   This chunk causes troubles when you try convert cata adt (CATA -> 335 -> SL) or something
-#   https://wowdev.wiki/ADT/v18#MCLV_sub-chunk_.28Cata.2B.29
+#   Removing bad chunks
+#   This chunks causes troubles when you try convert cata adt (CATA -> 335 -> SL) or something
 remove_mclv=true
+remove_mcmt=true
 
 #   Clearing output folder before convert map
 clear_output_dir=true

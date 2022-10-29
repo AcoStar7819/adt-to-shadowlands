@@ -4,5 +4,6 @@ class Chunk():
     MHID = b"DIHM"
 
     MCLV = b"VLCM"
+    MCMT = b"TMCM"
 
     MMDX = b'XDMM'
