@@ -7,6 +7,7 @@ from subprocess import Popen, PIPE
 from Config import Config
 from Listfile import Listfile
 from Chunk import Chunk
+from FlagReader import FlagReader
 
 # Do not close console after error
 def exc_handler(exc_type, exc_value, tb):
@@ -225,3 +226,116 @@ if obj_files := glob.glob(output_path + '*_obj*.adt'):
             shutil.copyfile(obj, output_path + '/' + os.path.basename(obj))
             os.remove(obj)
             os.remove(optimizer_folder + '/Input/' + os.path.basename(obj))
+
+#   Replacing paths with fileId in obj files
+#   M2, obj0
+for path in glob.glob(output_path + '*_obj0.adt'):
+    file_ids = []
+    with open(path, 'rb+') as file:
+        mmdx = file.read().find(Chunk.MMDX)
+        mmdx += 4 # Skip chunk name
+        file.seek(mmdx)
+        length = int.from_bytes(file.read(4), byteorder='little') # Chunk len
+        models = file.read(length).decode("ascii").split('\x00')
+        for model in models:
+            if model == "":
+                continue
+            model = model.lower().replace("\\", "/")
+            file_ids.append(listfile.getId(model))
+
+        file.seek(0)
+        mddf = file.read().find(Chunk.MDDF)
+        mddf += 4 # Skip chunk name
+        file.seek(mddf)
+        length = int.from_bytes(file.read(4), byteorder='little')
+        models_count = length / 36
+        for i in range(int(models_count)):
+            model_id = int.from_bytes(file.read(4), byteorder='little')
+            file.seek(file.tell()-4)
+            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            file.seek(file.tell()+30)
+            file.write(int.to_bytes(64, 2, 'little'))
+
+#   M2, obj1
+for path in glob.glob(output_path + '*_obj1.adt'):
+    file_ids = []
+    with open(path, 'rb+') as file:
+        mmdx = file.read().find(Chunk.MMDX)
+        mmdx += 4 # Skip chunk name
+        file.seek(mmdx)
+        length = int.from_bytes(file.read(4), byteorder='little') # Chunk len
+        models = file.read(length).decode("ascii").split('\x00')
+        for model in models:
+            if model == "":
+                continue
+            model = model.lower().replace("\\", "/")
+            file_ids.append(listfile.getId(model))
+
+        file.seek(0)
+        mldd = file.read().find(Chunk.MLDD)
+        mldd += 4 # Skip chunk name
+        file.seek(mldd)
+        length = int.from_bytes(file.read(4), byteorder='little')
+        models_count = length / 36
+        for i in range(int(models_count)):
+            model_id = int.from_bytes(file.read(4), byteorder='little')
+            file.seek(file.tell()-4)
+            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            file.seek(file.tell()+30)
+            file.write(int.to_bytes(64, 2, 'little'))
+
+#   WMO, obj0
+for path in glob.glob(output_path + '*_obj0.adt'):
+    file_ids = []
+    with open(path, 'rb+') as file:
+        mwmo = file.read().find(Chunk.MWMO)
+        mwmo += 4 # Skip chunk name
+        file.seek(mwmo)
+        length = int.from_bytes(file.read(4), byteorder='little') # Chunk len
+        models = file.read(length).decode("ascii").split('\x00')
+        for model in models:
+            if model == "":
+                continue
+            model = model.lower().replace("\\", "/")
+            file_ids.append(listfile.getId(model))
+
+        file.seek(0)
+        modf = file.read().find(Chunk.MODF)
+        modf += 4 # Skip chunk name
+        file.seek(modf)
+        length = int.from_bytes(file.read(4), byteorder='little')
+        models_count = length / 64
+        for i in range(int(models_count)):
+            model_id = int.from_bytes(file.read(4), byteorder='little')
+            file.seek(file.tell()-4)
+            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            file.seek(file.tell()+52)
+            file.write(int.to_bytes(8, 2, 'little'))
+
+#   WMO, obj1
+for path in glob.glob(output_path + '*_obj1.adt'):
+    file_ids = []
+    with open(path, 'rb+') as file:
+        mwmo = file.read().find(Chunk.MWMO)
+        mwmo += 4 # Skip chunk name
+        file.seek(mwmo)
+        length = int.from_bytes(file.read(4), byteorder='little') # Chunk len
+        models = file.read(length).decode("ascii").split('\x00')
+        for model in models:
+            if model == "":
+                continue
+            model = model.lower().replace("\\", "/")
+            file_ids.append(listfile.getId(model))
+
+        file.seek(0)
+        mlmd = file.read().find(Chunk.MLMD)
+        mlmd += 4 # Skip chunk name
+        file.seek(mlmd)
+        length = int.from_bytes(file.read(4), byteorder='little')
+        models_count = length / 40
+        for i in range(int(models_count)):
+            model_id = int.from_bytes(file.read(4), byteorder='little')
+            file.seek(file.tell()-4)
+            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            file.seek(file.tell()+28)
+            file.write(int.to_bytes(8, 2, 'little'))

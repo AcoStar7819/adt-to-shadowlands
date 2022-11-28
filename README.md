@@ -1,5 +1,5 @@
-# ADT converter from 3.3.5 to 9.0.5
-A small Python script that can help you convert adt files from 3.3.5 to 9.0.5 (maybe later versions also work, I haven't tested this).
+# ADT converter from 3.3.5 to 9.1.5
+A small Python script that can help you convert adt files from 3.3.5 to 9.1.5 (maybe nearest versions also work, I haven't tested this).
 
 To do part of the work, the script uses two other converters:
 - [Luzifix ADT Converter](https://github.com/Luzifix/ADTConvert) - For base adt fixing
