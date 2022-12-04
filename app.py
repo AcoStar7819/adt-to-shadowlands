@@ -311,6 +311,7 @@ for path in glob.glob(output_path + '*_obj0.adt'):
             file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
             file.seek(file.tell()+52)
             file.write(int.to_bytes(8, 2, 'little'))
+            file.read(6)
 
 #   WMO, obj1
 for path in glob.glob(output_path + '*_obj1.adt'):
@@ -339,3 +340,4 @@ for path in glob.glob(output_path + '*_obj1.adt'):
             file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
             file.seek(file.tell()+28)
             file.write(int.to_bytes(8, 2, 'little'))
+            file.read(6)
