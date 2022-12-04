@@ -252,7 +252,10 @@ for path in glob.glob(output_path + '*_obj0.adt'):
         for i in range(int(models_count)):
             model_id = int.from_bytes(file.read(4), byteorder='little')
             file.seek(file.tell()-4)
-            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            model_id = file_ids[model_id]
+            if model_id is None:
+                model_id = 166046 # spells/errorcube.m2
+            file.write(int.to_bytes(int(model_id), 4, 'little'))
             file.seek(file.tell()+30)
             file.write(int.to_bytes(64, 2, 'little'))
 
@@ -280,7 +283,10 @@ for path in glob.glob(output_path + '*_obj1.adt'):
         for i in range(int(models_count)):
             model_id = int.from_bytes(file.read(4), byteorder='little')
             file.seek(file.tell()-4)
-            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            model_id = file_ids[model_id]
+            if model_id is None:
+                model_id = 166046 # spells/errorcube.m2
+            file.write(int.to_bytes(int(model_id), 4, 'little'))
             file.seek(file.tell()+30)
             file.write(int.to_bytes(64, 2, 'little'))
 
@@ -308,7 +314,10 @@ for path in glob.glob(output_path + '*_obj0.adt'):
         for i in range(int(models_count)):
             model_id = int.from_bytes(file.read(4), byteorder='little')
             file.seek(file.tell()-4)
-            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            model_id = file_ids[model_id]
+            if model_id is None:
+                model_id = 166046 # spells/errorcube.m2
+            file.write(int.to_bytes(int(model_id), 4, 'little'))
             file.seek(file.tell()+52)
             file.write(int.to_bytes(8, 2, 'little'))
             file.read(6)
@@ -337,7 +346,10 @@ for path in glob.glob(output_path + '*_obj1.adt'):
         for i in range(int(models_count)):
             model_id = int.from_bytes(file.read(4), byteorder='little')
             file.seek(file.tell()-4)
-            file.write(int.to_bytes(int(file_ids[model_id]), 4, 'little'))
+            model_id = file_ids[model_id]
+            if model_id is None:
+                model_id = 166046 # spells/errorcube.m2
+            file.write(int.to_bytes(int(model_id), 4, 'little'))
             file.seek(file.tell()+28)
             file.write(int.to_bytes(8, 2, 'little'))
             file.read(6)
